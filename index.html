@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Idaho Tech Startup Federation</title>
+    <style>
+      :root {
+        --black: #000;
+        --dark-gray: #333;
+        --medium-gray: #666;
+        --light-gray: #f5f5f5;
+        --accent: #007bff;
+        --white: #fff;
+      }
+      
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--light-gray);
+        color: var(--dark-gray);
+        line-height: 1.6;
+      }
+
+      header {
+        background-color: var(--black);
+        color: var(--white);
+        padding: 1.25rem 2.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition: all 0.3s ease;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--white);
+        letter-spacing: -0.025em;
+        margin: 0;
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      nav a {
+        color: var(--white);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        transition: all 0.2s ease;
+      }
+      
+      nav a:hover {
+        color: var(--accent);
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      nav a.active {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+      
+      .hero-section {
+        position: relative;
+        height: 450px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+
+      .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.65);
+        transition: transform 8s ease;
+      }
+
+      .hero-section:hover .hero-image {
+        transform: scale(1.05);
+      }
+
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0 1rem;
+      }
+
+      .hero-title {
+        color: var(--white);
+        font-size: 3.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        text-align: center;
+      }
+
+      .hero-subtitle {
+        color: var(--white);
+        font-size: 1.4rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        max-width: 700px;
+        text-align: center;
+      }
+
+      .search-container {
+        max-width: 800px;
+        margin: -2.5rem auto 3rem;
+        padding: 0 1rem;
+        position: relative;
+        z-index: 2;
+      }
+
+      .search-bar {
+        position: relative;
+        width: 100%;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--medium-gray);
+      }
+
+      #searchInput {
+        width: 100%;
+        padding: 1rem 1rem 1rem 3rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        font-family: inherit;
+        background-color: var(--white);
+        transition: box-shadow 0.3s ease;
+      }
+
+      #searchInput:focus {
+        outline: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--black);
+        text-align: center;
+        margin-bottom: 2rem;
+        letter-spacing: -0.025em;
+      }
+
+      .categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+        padding: 0 2rem 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .category-card {
+        background-color: var(--white);
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        overflow: hidden;
+        height: 100%;
+        cursor: pointer;
+      }
+
+      .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .category-card h3 {
+        margin-top: 0.5rem;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+      
+      .category-card p {
+        margin-bottom: 0.5rem;
+        color: var(--dark-gray);
+      }
+
+      .card-image {
+        width: calc(100% + 3rem);
+        height: 180px;
+        object-fit: cover;
+        border-radius: 0.25rem;
+        margin: -1.5rem -1.5rem 1rem;
+      }
+      
+      .empty-state {
+        width: 100%;
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--dark-gray);
+        background-color: var(--white);
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .empty-state h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--black);
+      }
+      
+      .footer {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        background-color: var(--black);
+        color: var(--white);
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        text-align: left;
+      }
+
+      .footer-section h4 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        color: var(--white);
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section a {
+        color: #aaa;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer-section a:hover {
+        color: var(--white);
+      }
+      
+      .copyright {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid #444;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+      
+      .admin-info {
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+      
+      /* Modal styles for startup details */
+      .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        overflow-y: auto;
+      }
+      
+      .modal-content {
+        background-color: var(--white);
+        margin: 50px auto;
+        max-width: 800px;
+        width: 90%;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        position: relative;
+        padding: 0;
+        overflow: hidden;
+      }
+      
+      .modal-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+        position: relative;
+      }
+      
+      .modal-body {
+        padding: 1.5rem;
+      }
+      
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--medium-gray);
+        transition: color 0.2s ease;
+        background: none;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .modal-close:hover {
+        color: var(--dark-gray);
+        background-color: #f0f0f0;
+      }
+      
+      .startup-header {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .startup-logo {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--medium-gray);
+      }
+      
+      .startup-info {
+        flex: 1;
+      }
+      
+      .startup-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--black);
+        margin-bottom: 0.25rem;
+      }
+      
+      .startup-category {
+        color: var(--accent);
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .startup-description {
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+      
+      .startup-website {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: var(--accent);
+        color: var(--white);
+        text-decoration: none;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        transition: background-color 0.2s ease;
+      }
+      
+      .startup-website:hover {
+        background-color: #0056b3;
+      }
+      
+      .startup-date {
+        font-size: 0.9rem;
+        color: var(--medium-gray);
+        margin-top: 1.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+        
+        .hero-subtitle {
+          font-size: 1.2rem;
+        }
+        
+        header {
+          flex-direction: column;
+          padding: 1rem;
+        }
+        
+        nav {
+          margin-top: 1rem;
+        }
+        
+        .search-container {
+          margin-top: -1.5rem;
+        }
+        
+        .startup-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        
+        .startup-logo {
+          margin-bottom: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo-container">
+        <h1 class="logo">Idaho <span>Tech</span> Startup Federation</h1>
+      </div>
+      <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html">Startups</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="hero-section">
+      <img
+        src="https://worldlyknown.com/wp-content/uploads/2022/05/what-is-idaho-known-for.jpg"
+        alt="Idaho scenery"
+        class="hero-image"
+      />
+      <div class="hero-overlay">
+        <h2 class="hero-title">Discover Local Startups</h2>
+        <p class="hero-subtitle">Connect with innovative companies shaping Idaho's tech landscape</p>
+      </div>
+    </section>
+
+    <div class="search-container">
+      <div class="search-bar">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search startups by name, category, or description..."
+        />
+      </div>
+    </div>
+
+    <h2 class="section-title">Featured Startups</h2>
+    
+    <div class="categories" id="startupList">
+      <!-- Startups will be loaded here -->
+    </div>
+    
+    <!-- Startup Details Modal -->
+    <div id="startupModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body" id="startupDetails">
+          <!-- Startup details will be loaded here -->
+        </div>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Idaho Tech Federation</h4>
+          <p>Supporting innovation and growth in Idaho's technology ecosystem.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="index.html">Startups</a></li>
+            <li><a href="events.html">Events</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="funding.html">Funding Opportunities</a></li>
+            <li><a href="mentorship.html">Mentorship Programs</a></li>
+            <li><a href="coworking.html">Coworking Spaces</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@idahotech.org">info@idahotech.org</a></li>
+            <li><a href="tel:+12085551234">(208) 555-1234</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Idaho Tech Startup Federation</p>
+        <p class="admin-info">Admin access: Press Alt+Shift+A</p>
+      </div>
+    </footer>
+
+    <script>
+      // Admin panel access via Alt+Shift+A
+      document.addEventListener("keydown", function (e) {
+        if (e.shiftKey && e.altKey && e.key.toLowerCase() === "a") {
+          const password = prompt("Enter admin password:");
+          if (password === "mingusishot2008") {
+            window.location.href = "admin.html";
+          } else {
+            alert("Incorrect password.");
+          }
+        }
+      });
+
+      // Load startups from localStorage
+      function getStartups() {
+        return JSON.parse(localStorage.getItem('startups')) || [];
+      }
+
+      const startupList = document.getElementById("startupList");
+      const searchInput = document.getElementById("searchInput");
+      const startupModal = document.getElementById("startupModal");
+      const closeModal = document.getElementById("closeModal");
+      const startupDetails = document.getElementById("startupDetails");
+      
+      // Close modal when clicking the close button
+      closeModal.addEventListener("click", () => {
+        startupModal.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+      
+      // Close modal when clicking outside the modal content
+      startupModal.addEventListener("click", (e) => {
+        if (e.target === startupModal) {
+          startupModal.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      });
+      
+      // Show startup details in modal
+      function showStartupDetails(id) {
+        const startups = getStartups();
+        const startup = startups.find(s => s.id === id);
+        
+        if (!startup) {
+          alert("Startup not found.");
+          return;
+        }
+        
+        // Create startup details HTML
+        let logoHtml = '';
+        if (startup.image) {
+          logoHtml = `<img src="${startup.image}" alt="${startup.name}" class="startup-logo">`;
+        } else {
+          logoHtml = `<div class="startup-logo">No Logo</div>`;
+        }
+        
+        let websiteHtml = '';
+        if (startup.website) {
+          websiteHtml = `<a href="${startup.website}" target="_blank" class="startup-website">Visit Website</a>`;
+        }
+        
+        startupDetails.innerHTML = `
+          <div class="startup-header">
+            ${logoHtml}
+            <div class="startup-info">
+              <h2 class="startup-title">${startup.name}</h2>
+              <p class="startup-category">Category: ${startup.category}</p>
+            </div>
+          </div>
+          <div class="startup-description">
+            <p>${startup.description}</p>
+          </div>
+          ${websiteHtml}
+          <p class="startup-date">Added on: ${new Date(startup.date).toLocaleDateString()}</p>
+        `;
+        
+        // Show modal
+        startupModal.style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
+      
+      // Render startups from localStorage
+      function renderStartups(list) {
+        startupList.innerHTML = "";
+        if (list.length === 0) {
+          const emptyState = document.createElement("div");
+          emptyState.className = "empty-state";
+          emptyState.innerHTML = `
+            <h3>No startup entries yet</h3>
+            <p>Add startup data to display entries here</p>
+          `;
+          startupList.appendChild(emptyState);
+          return;
+        }
+        
+        list.forEach(startup => {
+          const card = document.createElement("div");
+          card.className = "category-card";
+          card.dataset.id = startup.id;
+          card.onclick = () => showStartupDetails(startup.id);
+          
+          // Create card content with image if available
+          let imageHtml = '';
+          if (startup.image) {
+            imageHtml = `<img src="${startup.image}" alt="${startup.name}" class="card-image">`;
+          }
+          
+          card.innerHTML = `
+            ${imageHtml}
+            <h3>${startup.name}</h3>
+            <p><strong>Category:</strong> ${startup.category}</p>
+            <p>${startup.description.substring(0, 100)}${startup.description.length > 100 ? '...' : ''}</p>
+          `;
+          
+          startupList.appendChild(card);
+        });
+      }
+
+      // Filter startups based on search query
+      function filterStartups(query) {
+        const startups = getStartups();
+        if (query.trim() === '') {
+          renderStartups(startups);
+          return;
+        }
+        
+        const filtered = startups.filter(startup =>
+          startup.name.toLowerCase().includes(query.toLowerCase()) ||
+          startup.category.toLowerCase().includes(query.toLowerCase()) ||
+          startup.description.toLowerCase().includes(query.toLowerCase())
+        );
+        renderStartups(filtered);
+      }
+
+      // Listen for user input to filter startups
+      searchInput.addEventListener("input", event => {
+        filterStartups(event.target.value);
+      });
+
+      // Initial render of startups
+      document.addEventListener('DOMContentLoaded', () => {
+        renderStartups(getStartups());
+        
+        // Check if URL has startup ID parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const startupId = urlParams.get('id');
+        
+        if (startupId) {
+          showStartupDetails(parseInt(startupId));
+        }
+      });
+    </script>
+  </body>
+</html>
