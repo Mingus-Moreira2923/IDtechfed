@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Contact the Idaho Tech Startup Federation - Get in touch with us for questions, partnerships, and startup opportunities in Idaho's tech ecosystem." />
     <title>Contact Us - Idaho Tech Startup Federation</title>
     <style>
       :root {
@@ -11,7 +12,14 @@
         --medium-gray: #666;
         --light-gray: #f5f5f5;
         --accent: #007bff;
+        --accent-hover: #0056b3;
         --white: #fff;
+        --success: #28a745;
+        --error: #dc3545;
+        --border-radius: 0.5rem;
+        --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        --shadow-hover: 0 8px 25px rgba(0,0,0,0.15);
+        --transition: all 0.3s ease;
       }
       
       * {
@@ -36,11 +44,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        box-shadow: var(--shadow);
         position: sticky;
         top: 0;
         z-index: 100;
-        transition: all 0.3s ease;
+        transition: var(--transition);
       }
 
       .logo-container {
@@ -74,24 +82,54 @@
         font-weight: 500;
         padding: 0.5rem 1rem;
         border-radius: 0.25rem;
-        transition: all 0.2s ease;
+        transition: var(--transition);
+        position: relative;
       }
       
       nav a:hover {
         color: var(--accent);
         background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
       }
 
       nav a.active {
         background-color: rgba(255, 255, 255, 0.15);
       }
+
+      /* Mobile menu toggle */
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
       
       .page-header {
-        background-color: var(--accent);
+        background: linear-gradient(135deg, var(--accent), #0056b3);
         color: var(--white);
         text-align: center;
         padding: 4rem 1rem;
         margin-bottom: 3rem;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1.5" fill="white" opacity="0.1"/></svg>');
+        animation: float 20s ease-in-out infinite;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
       }
       
       .page-title {
@@ -99,12 +137,17 @@
         font-weight: 700;
         margin-bottom: 1rem;
         letter-spacing: -0.025em;
+        position: relative;
+        z-index: 1;
       }
       
       .page-subtitle {
         font-size: 1.2rem;
         max-width: 700px;
         margin: 0 auto;
+        position: relative;
+        z-index: 1;
+        opacity: 0.95;
       }
       
       .contact-container {
@@ -116,18 +159,17 @@
         gap: 3rem;
       }
       
-      .contact-info {
+      .contact-info, .contact-form {
         background-color: var(--white);
-        border-radius: 0.5rem;
+        border-radius: var(--border-radius);
         padding: 2rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
       }
       
-      .contact-form {
-        background-color: var(--white);
-        border-radius: 0.5rem;
-        padding: 2rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      .contact-info:hover, .contact-form:hover {
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-2px);
       }
       
       .section-title {
@@ -136,25 +178,52 @@
         color: var(--black);
         margin-bottom: 1.5rem;
         letter-spacing: -0.025em;
+        position: relative;
+      }
+      
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -0.5rem;
+        left: 0;
+        width: 3rem;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        border-radius: 2px;
       }
       
       .contact-item {
         display: flex;
         align-items: flex-start;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        transition: var(--transition);
+      }
+      
+      .contact-item:hover {
+        background-color: rgba(0, 123, 255, 0.05);
+        transform: translateX(5px);
       }
       
       .contact-icon {
-        background-color: rgba(0, 123, 255, 0.1);
+        background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 123, 255, 0.05));
         color: var(--accent);
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
         margin-right: 1rem;
         flex-shrink: 0;
+        transition: var(--transition);
+      }
+      
+      .contact-item:hover .contact-icon {
+        background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+        color: var(--white);
+        transform: scale(1.1);
       }
       
       .contact-item-content h4 {
@@ -166,7 +235,8 @@
       
       .contact-item-content p, .contact-item-content a {
         color: var(--medium-gray);
-        transition: color 0.2s ease;
+        transition: var(--transition);
+        text-decoration: none;
       }
       
       .contact-item-content a:hover {
@@ -182,18 +252,37 @@
       .social-link {
         background-color: var(--light-gray);
         color: var(--dark-gray);
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        transition: all 0.2s ease;
+        transition: var(--transition);
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .social-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transition: var(--transition);
+      }
+      
+      .social-link:hover::before {
+        left: 100%;
       }
       
       .social-link:hover {
         background-color: var(--accent);
         color: var(--white);
+        transform: translateY(-3px);
       }
       
       form {
@@ -206,72 +295,104 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        position: relative;
       }
       
       label {
         font-weight: 500;
         color: var(--dark-gray);
+        transition: var(--transition);
       }
       
       .form-control {
         padding: 0.75rem 1rem;
-        border: 1px solid #ddd;
-        border-radius: 0.25rem;
+        border: 2px solid #ddd;
+        border-radius: var(--border-radius);
         font-family: inherit;
         font-size: 1rem;
-        transition: border-color 0.2s ease;
+        transition: var(--transition);
+        background-color: var(--white);
       }
       
       .form-control:focus {
         outline: none;
         border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        transform: translateY(-1px);
+      }
+      
+      .form-control:invalid {
+        border-color: var(--error);
+      }
+      
+      .form-control:valid:not(:placeholder-shown) {
+        border-color: var(--success);
       }
       
       textarea.form-control {
         min-height: 150px;
         resize: vertical;
+        font-family: inherit;
       }
       
       .btn {
-        padding: 0.75rem 1.5rem;
-        background-color: var(--accent);
+        padding: 0.75rem 2rem;
+        background: linear-gradient(135deg, var(--accent), var(--accent-hover));
         color: var(--white);
         border: none;
-        border-radius: 0.25rem;
+        border-radius: var(--border-radius);
         font-size: 1rem;
         font-weight: 500;
         cursor: pointer;
-        transition: background-color 0.2s ease;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: var(--transition);
+      }
+      
+      .btn:hover::before {
+        left: 100%;
       }
       
       .btn:hover {
-        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
       }
       
-      .map-container {
-        margin-top: 3rem;
-        text-align: center;
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
       }
       
-      .map-container h2 {
-        margin-bottom: 1.5rem;
+      .success-message, .error-message {
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        margin-top: 1rem;
+        font-weight: 500;
+        display: none;
       }
       
-      .map {
-        height: 400px;
-        width: 100%;
-        background-color: #eee;
-        border-radius: 0.5rem;
-        overflow: hidden;
-        max-width: 1200px;
-        margin: 0 auto;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      .success-message {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: var(--success);
+        border: 1px solid rgba(40, 167, 69, 0.3);
       }
       
-      .map iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
+      .error-message {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: var(--error);
+        border: 1px solid rgba(220, 53, 69, 0.3);
       }
       
       .faq-section {
@@ -282,40 +403,72 @@
       
       .faq-title {
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         font-size: 2rem;
         font-weight: 700;
+        color: var(--black);
       }
       
       .faq-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 2rem;
       }
       
       .faq-item {
         background-color: var(--white);
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        cursor: pointer;
+        border-left: 4px solid transparent;
+      }
+      
+      .faq-item:hover {
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-2px);
+        border-left-color: var(--accent);
       }
       
       .faq-question {
         font-size: 1.2rem;
         font-weight: 600;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
         color: var(--black);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .faq-question::after {
+        content: '+';
+        font-size: 1.5rem;
+        color: var(--accent);
+        transition: var(--transition);
+      }
+      
+      .faq-item.active .faq-question::after {
+        transform: rotate(45deg);
       }
       
       .faq-answer {
         color: var(--medium-gray);
         line-height: 1.7;
+        max-height: 0;
+        overflow: hidden;
+        transition: var(--transition);
+      }
+      
+      .faq-item.active .faq-answer {
+        max-height: 200px;
+        margin-top: 1rem;
       }
       
       .footer {
         text-align: center;
         padding: 3rem 1.5rem;
-        background-color: var(--black);
+        background: linear-gradient(135deg, var(--black), #1a1a1a);
         color: var(--white);
       }
 
@@ -345,11 +498,11 @@
       .footer-section a {
         color: #aaa;
         text-decoration: none;
-        transition: color 0.2s ease;
+        transition: var(--transition);
       }
 
       .footer-section a:hover {
-        color: var(--white);
+        color: var(--accent);
       }
       
       .copyright {
@@ -358,16 +511,31 @@
         border-top: 1px solid #444;
         font-size: 0.9rem;
         color: #aaa;
+        text-align: center;
       }
       
-      .admin-info {
-        font-size: 0.8rem;
-        opacity: 0.7;
+      /* Loading spinner */
+      .spinner {
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid var(--accent);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+        display: none;
+        margin-left: 10px;
       }
       
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Responsive Design */
       @media (max-width: 900px) {
         .contact-container {
           grid-template-columns: 1fr;
+          gap: 2rem;
         }
         
         .faq-grid {
@@ -377,12 +545,31 @@
       
       @media (max-width: 768px) {
         header {
-          flex-direction: column;
+          flex-wrap: wrap;
           padding: 1rem;
         }
         
+        .menu-toggle {
+          display: block;
+        }
+        
         nav {
+          width: 100%;
           margin-top: 1rem;
+          display: none;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        
+        nav.active {
+          display: flex;
+        }
+        
+        nav a {
+          padding: 0.75rem;
+          text-align: center;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: var(--border-radius);
         }
         
         .page-title {
@@ -392,6 +579,54 @@
         .page-subtitle {
           font-size: 1rem;
         }
+        
+        .contact-container {
+          padding: 0 1rem;
+        }
+        
+        .contact-info, .contact-form {
+          padding: 1.5rem;
+        }
+        
+        .faq-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .faq-item {
+          padding: 1.5rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .page-header {
+          padding: 2rem 1rem;
+        }
+        
+        .social-links {
+          justify-content: center;
+        }
+        
+        .footer-content {
+          text-align: center;
+        }
+      }
+      
+      /* Accessibility improvements */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+      
+      /* Focus indicators for accessibility */
+      .btn:focus,
+      .form-control:focus,
+      nav a:focus,
+      .social-link:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
       }
     </style>
   </head>
@@ -400,11 +635,12 @@
       <div class="logo-container">
         <h1 class="logo">Idaho <span>Tech</span> Startup Federation</h1>
       </div>
-      <nav>
-               <a href="index.html" class="active">Home</a>
+      <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+      <nav id="navigation">
+        <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="index.html">Startups</a>
-        <a href="contact.html">Contact</a>
+        <a href="index.html#startups">Startups</a>
+        <a href="contact.html" class="active">Contact</a>
       </nav>
     </header>
 
@@ -420,26 +656,20 @@
         <div class="contact-item">
           <div class="contact-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 10C20 14.4183 16.4183 18 12 18C10.7369 18 9.54269 17.7103 8.47391 17.1901L4 18L4.80898 13.5261C4.28975 12.4573 4 11.2631 4 10C4 5.58172 7.58172 2 12 2C16.4183 2 20 5.58172 20 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-        <div class="contact-item">
-          <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M3 7L12 13L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="contact-item-content">
             <h4>Email</h4>
-            <p><a href="mailto:info@idahotech.org">idahotechfederation@gmail.com</a></p>
+            <p><a href="mailto:idahotechfederation@gmail.com">idahotechfederation@gmail.com</a></p>
           </div>
         </div>
         
         <div class="contact-item">
           <div class="contact-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 16.9201V19.9201C22 20.4704 21.7893 20.9983 21.4142 21.3733C21.0391 21.7484 20.5113 21.9591 19.961 21.9591C18.5292 21.9591 17.3423 21.6424 16.4204 21.0089C15.4984 20.3755 14.6251 19.4909 13.8004 18.3553C12.9757 17.2197 12.2074 15.9262 11.4957 14.4748C10.784 13.0234 10.4301 11.5039 10.4341 9.91618C10.4341 9.36664 10.6437 8.83973 11.0177 8.46558C11.3917 8.09142 11.9178 7.88037 12.468 7.87976H15.476C15.947 7.87906 16.399 8.04507 16.7479 8.34542C17.0968 8.64577 17.3198 9.05742 17.3752 9.51132C17.4711 10.3309 17.6693 11.1357 17.9661 11.9088C18.0937 12.2419 18.109 12.6035 18.0098 12.9446C17.9107 13.2856 17.7015 13.5879 17.4121 13.8078L16.4341 14.7908C17.0833 15.9307 17.9018 16.9738 18.8687 17.8864C19.8355 18.7989 20.9378 19.5758 22.1421 20.1978L23.1161 19.2188C23.3361 18.9288 23.6387 18.7192 23.9802 18.6199C24.3217 18.5206 24.6837 18.5359 25.0171 18.6638C25.7889 18.9598 26.5923 19.1572 27.4107 19.2518C27.8653 19.3076 28.2776 19.5315 28.578 19.8814C28.8783 20.2313 29.0437 20.6843 29.0421 21.1558L22 16.9201ZM13 5.92009C14.1458 5.92009 15.245 6.38278 16.0572 7.19498C16.8694 8.00718 17.332 9.10588 17.332 10.2517M13 1.92009C15.5712 1.92009 18.0366 2.96259 19.8369 4.76296C21.6373 6.56333 22.6798 9.02868 22.6798 11.5999M13 5.92009V1.92009V5.92009Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22 16.92V19.92C22 20.47 21.79 21 21.41 21.37C21.04 21.75 20.51 21.96 19.96 21.96C18.53 21.96 17.34 21.64 16.42 21.01C15.50 20.38 14.63 19.49 13.80 18.36C12.98 17.22 12.21 15.93 11.50 14.47C10.78 13.02 10.43 11.50 10.43 9.92C10.43 9.37 10.64 8.84 11.02 8.47C11.39 8.09 11.92 7.88 12.47 7.88H15.48C15.95 7.88 16.40 8.05 16.75 8.35C17.10 8.65 17.32 9.06 17.38 9.51C17.47 10.33 17.67 11.14 17.97 11.91C18.09 12.24 18.11 12.60 18.01 12.94C17.91 13.29 17.70 13.59 17.41 13.81L16.43 14.79C17.08 15.93 17.90 16.97 18.87 17.89C19.84 18.80 20.94 19.58 22.14 20.20L23.12 19.22C23.34 18.93 23.64 18.72 23.98 18.62C24.32 18.52 24.68 18.54 25.02 18.66C25.79 18.96 26.59 19.16 27.41 19.25C27.87 19.31 28.28 19.53 28.58 19.88C28.88 20.23 29.04 20.68 29.04 21.16L22 16.92Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="contact-item-content">
@@ -476,75 +706,4 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a href="#" class="https://www.instagram.com/idaho_tech_federation/" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="https://www.instagram.com/idaho_tech_federation/" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="17" cy="7" r="1" fill="currentColor"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-      
-      <div class="contact-form">
-        <h3 class="section-title">Send Us a Message</h3>
-        <form id="contactForm">
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" class="form-control" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" class="form-control" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" name="subject" class="form-control" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" class="form-control" required></textarea>
-          </div>
-          
-          <button type="submit" class="btn">Send Message</button>
-        </form>
-      </div>
-    </section>
-    <section class="faq-section">
-      <h2 class="faq-title">Frequently Asked Questions</h2>
-      <div class="faq-grid">
-        <div class="faq-item">
-          <h3 class="faq-question">How can my startup join the Idaho Tech Federation?</h3>
-          <p class="faq-answer">To join the Idaho Tech Federation, you'll need to submit an application through our website. Once submitted, our team will review your application and give you a call if accepted.</p>
-        </div>
-        
-        <div class="faq-item">
-          <h3 class="faq-question">What resources does the Federation provide for startups?</h3>
-          <p class="faq-answer">The Federation provides free marketing. But we are hoping to expand to networking events in the future.</p>
-        </div>
-        
-        <div class="faq-item">
-          <h3 class="faq-question">Are there membership fees to join?</h3>
-          <p class="faq-answer">No,we are a non profit organization. Donations would be appreciated.</p>
-        </div>
-        
-        <div class="faq-item">
-          <h3 class="faq-question">How can I volunteer or mentor with the Federation?</h3>
-          <p class="faq-answer">We're not taking volunteers currently. But we will let people know through our socials, when we are. In the mean time feel free to tell people/post about us.</p>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>Idaho Tech Federation</h4>
-          <p>Supporting innovation and growth in Idaho's technology ecosystem.</p>
-        </div>
-        <div class
+              <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="2" stroke-linec
