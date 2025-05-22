@@ -1,0 +1,25 @@
+[{
+    "id": "1",
+    "name": "EcoSense Solutions",
+    "category": "CleanTech",
+    "description": "EcoSense develops innovative sensors and monitoring systems to help agricultural businesses track environmental conditions and optimize resource usage.",
+    "website": "https://ecosense-solutions.example.com",
+    "image": "https://via.placeholder.com/300x200?text=EcoSense",
+    "date": "2024-12-01T08:00:00.000Z"
+}, {
+    "id": "2",
+    "name": "MedTrack",
+    "category": "Healthcare",
+    "description": "A patient-centered healthcare platform that connects rural communities with medical specialists through telemedicine and tracks health metrics for better outcomes.",
+    "website": "https://medtrack.example.com",
+    "image": "https://via.placeholder.com/300x200?text=MedTrack",
+    "date": "2025-01-15T08:00:00.000Z"
+}, {
+    "id": "3",
+    "name": "Spud Analytics",
+    "category": "AgTech",
+    "description": "AI-powered analysis tools for potato farmers to maximize yield and quality while reducing waste. Specializes in Idaho's primary crop.",
+    "website": "https://spudanalytics.example.com",
+    "image": "https://via.placeholder.com/300x200?text=SpudAnalytics",
+    "date": "2025-02-10T08:00:00.000Z"
+}]
