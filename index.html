@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,7 +33,7 @@
       header {
         background-color: var(--black);
         color: var(--light-gray);
-        padding: 1rem 2rem;
+        padding: 1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -40,20 +41,33 @@
         top: 0;
         z-index: 100;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        flex-wrap: wrap;
       }
 
       .logo {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         font-weight: 700;
         letter-spacing: -0.025em;
+        flex-shrink: 0;
       }
       .logo span {
         color: var(--accent-blue);
       }
 
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--light-gray);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
       nav {
         display: flex;
         gap: 1rem;
+        align-items: center;
       }
       nav a {
         color: var(--light-gray);
@@ -62,6 +76,7 @@
         padding: 0.5rem 1rem;
         border-radius: 0.25rem;
         transition: background-color 0.3s ease, color 0.3s ease;
+        white-space: nowrap;
       }
       nav a:hover,
       nav a.active {
@@ -71,7 +86,8 @@
 
       .hero-section {
         position: relative;
-        height: 60vh;
+        height: 50vh;
+        min-height: 300px;
         background: url('https://worldlyknown.com/wp-content/uploads/2022/05/what-is-idaho-known-for.jpg') center/cover no-repeat;
         display: flex;
         align-items: center;
@@ -87,15 +103,18 @@
         position: relative;
         text-align: center;
         color: var(--white);
+        padding: 1rem;
+        max-width: 90%;
       }
       .hero-title {
-        font-size: 3rem;
+        font-size: clamp(2rem, 5vw, 3rem);
         font-weight: 700;
         margin-bottom: 0.5rem;
       }
       .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
         max-width: 800px;
+        margin: 0 auto;
       }
 
       .search-container {
@@ -104,6 +123,7 @@
         margin: -2rem auto 2rem;
         z-index: 10;
         position: relative;
+        padding: 0 1rem;
       }
       .search-bar {
         display: flex;
@@ -118,6 +138,7 @@
       .search-icon {
         stroke: var(--light-gray);
         margin-right: 0.5rem;
+        flex-shrink: 0;
       }
       #searchInput {
         flex: 1;
@@ -125,6 +146,7 @@
         border: none;
         color: var(--white);
         font-size: 1rem;
+        min-width: 0;
       }
       #searchInput::placeholder {
         color: var(--medium-gray);
@@ -135,18 +157,18 @@
 
       .section-title {
         text-align: center;
-        font-size: 2rem;
-        margin: 2rem 0;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        margin: 2rem 1rem;
         color: var(--white);
       }
 
       #startupList {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
         gap: 1.5rem;
         max-width: 1200px;
         margin: 0 auto 4rem;
-        padding: 0 1.5rem;
+        padding: 0 1rem;
       }
       .category-card {
         background-color: var(--black);
@@ -192,6 +214,7 @@
       .category-card p {
         margin: 0 1rem 1rem;
         color: var(--medium-gray);
+        line-height: 1.5;
       }
       .category-tag {
         display: inline-block;
@@ -214,20 +237,23 @@
         z-index: 200;
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
+        padding: 1rem;
       }
       .modal-content {
         background-color: var(--dark-gray);
         padding: 0;
         border-radius: 1rem;
-        width: 90%;
+        width: 100%;
         max-width: 800px;
-        max-height: 90vh;
+        max-height: calc(100vh - 2rem);
         margin: 0;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
         color: var(--light-gray);
         overflow: hidden;
         position: relative;
         animation: modalEnter 0.4s ease-out forwards;
+        display: flex;
+        flex-direction: column;
       }
       @keyframes modalEnter {
         from {
@@ -271,6 +297,7 @@
         background-color: rgba(0, 0, 0, 0.3);
         position: relative;
         overflow: hidden;
+        flex-shrink: 0;
       }
       .startup-header::before {
         content: '';
@@ -282,21 +309,24 @@
         background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
       }
       .startup-logo {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         border-radius: 1rem;
         object-fit: cover;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         border: 2px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
       }
       .startup-info {
         margin-left: 1.5rem;
         flex: 1;
+        min-width: 0;
       }
       .startup-info h2 {
-        font-size: 1.8rem;
+        font-size: clamp(1.3rem, 3vw, 1.8rem);
         color: var(--white);
         margin-bottom: 0.5rem;
+        word-break: break-word;
       }
       .startup-category {
         display: inline-block;
@@ -308,12 +338,13 @@
       }
       
       .startup-body {
-        padding: 0 2rem;
+        padding: 1rem 2rem;
         overflow-y: auto;
-        max-height: calc(90vh - 100px - 4rem - 60px);
+        flex: 1;
+        min-height: 0;
       }
       .startup-description {
-        margin: 1.5rem 0;
+        margin: 0;
         font-size: 1.05rem;
         line-height: 1.7;
       }
@@ -328,6 +359,9 @@
         padding: 1.5rem 2rem;
         background-color: rgba(0, 0, 0, 0.2);
         border-top: 1px solid rgba(255, 255, 255, 0.05);
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        gap: 1rem;
       }
       .startup-date {
         color: var(--medium-gray);
@@ -342,6 +376,7 @@
         text-decoration: none;
         font-weight: 500;
         transition: all 0.2s ease;
+        white-space: nowrap;
       }
       .startup-website:hover {
         background-color: var(--accent-blue-light);
@@ -352,7 +387,7 @@
       .empty-state {
         grid-column: 1 / -1;
         text-align: center;
-        padding: 3rem;
+        padding: 3rem 1rem;
         background-color: var(--black);
         border-radius: 0.5rem;
       }
@@ -371,22 +406,164 @@
         margin-bottom: 1rem;
       }
 
+      /* Mobile-specific styles */
       @media (max-width: 768px) {
-        .hero-title { font-size: 2.2rem; }
-        .hero-subtitle { font-size: 1rem; }
-        .startup-header { 
+        header {
+          padding: 0.75rem 1rem;
+        }
+        
+        .logo {
+          font-size: 1.2rem;
+        }
+        
+        .nav-toggle {
+          display: block;
+        }
+        
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: var(--black);
           flex-direction: column;
+          padding: 1rem;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+          gap: 0.5rem;
+        }
+        
+        nav.active {
+          display: flex;
+        }
+        
+        nav a {
+          padding: 0.75rem 1rem;
+          width: 100%;
           text-align: center;
         }
+        
+        .hero-section {
+          height: 40vh;
+          min-height: 250px;
+        }
+        
+        .search-container {
+          margin: -1rem auto 1.5rem;
+        }
+        
+        .search-bar {
+          padding: 0.6rem 1rem;
+        }
+        
+        #startupList {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          padding: 0 1rem;
+        }
+        
+        .modal-overlay {
+          padding: 0.5rem;
+        }
+        
+        .startup-header {
+          flex-direction: column;
+          text-align: center;
+          padding: 1.5rem;
+        }
+        
+        .startup-logo {
+          width: 60px;
+          height: 60px;
+        }
+        
         .startup-info {
           margin: 1rem 0 0;
         }
+        
+        .startup-body {
+          padding: 1rem 1.5rem;
+        }
+        
         .startup-footer {
           flex-direction: column;
+          align-items: stretch;
           gap: 1rem;
+          padding: 1.5rem;
         }
+        
         .startup-date {
           order: 2;
+          text-align: center;
+        }
+        
+        .startup-website {
+          text-align: center;
+        }
+        
+        .modal-close {
+          top: 0.5rem;
+          right: 0.5rem;
+          width: 35px;
+          height: 35px;
+          font-size: 1.3rem;
+        }
+      }
+
+      /* Extra small screens */
+      @media (max-width: 480px) {
+        .hero-section {
+          height: 35vh;
+          min-height: 200px;
+        }
+        
+        .search-container {
+          padding: 0 0.5rem;
+        }
+        
+        #startupList {
+          padding: 0 0.5rem;
+        }
+        
+        .modal-overlay {
+          padding: 0.25rem;
+        }
+        
+        .startup-header {
+          padding: 1rem;
+        }
+        
+        .startup-body {
+          padding: 1rem;
+        }
+        
+        .startup-footer {
+          padding: 1rem;
+        }
+      }
+
+      /* Touch-friendly improvements */
+      @media (hover: none) and (pointer: coarse) {
+        .category-card:hover {
+          transform: none;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .category-card:hover::after {
+          width: 0;
+        }
+        
+        .category-card:active {
+          transform: scale(0.98);
+        }
+        
+        .startup-website:hover {
+          transform: none;
+          box-shadow: none;
+        }
+        
+        .startup-website:active {
+          transform: scale(0.95);
         }
       }
     </style>
@@ -394,7 +571,8 @@
   <body>
     <header>
       <div class="logo">Idaho <span>Tech</span> Startup Federation</div>
-      <nav>
+      <button class="nav-toggle" id="navToggle">☰</button>
+      <nav id="nav">
         <a href="index.html" class="active">Home</a>
         <a href="about.html">About</a>
         <a href="startups.html">Startups</a>
@@ -412,9 +590,9 @@
     <div class="search-container">
       <div class="search-bar">
         <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 17 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <input type="text" id="searchInput" placeholder="Search startups by name, category, or description..." />
+        <input type="text" id="searchInput" placeholder="Search startups..." />
       </div>
     </div>
 
@@ -439,6 +617,57 @@
       const startupModal = document.getElementById('startupModal');
       const closeModal = document.getElementById('closeModal');
       const startupDetails = document.getElementById('startupDetails');
+      const navToggle = document.getElementById('navToggle');
+      const nav = document.getElementById('nav');
+
+      // Mobile navigation toggle
+      navToggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+      });
+
+      // Close nav when clicking outside or on a link
+      document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && !navToggle.contains(e.target)) {
+          nav.classList.remove('active');
+        }
+      });
+
+      nav.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+          nav.classList.remove('active');
+        }
+      });
+
+      // Sample data (same as your startups.json)
+      const startupsData = [
+        {
+          "id": "1",
+          "name": "EcoSense Solutions",
+          "category": "CleanTech",
+          "description": "EcoSense develops innovative sensors and monitoring systems to help agricultural businesses track environmental conditions and optimize resource usage.",
+          "website": "https://ecosense-solutions.example.com",
+          "image": "https://via.placeholder.com/300x200?text=EcoSense",
+          "date": "2024-12-01T08:00:00.000Z"
+        },
+        {
+          "id": "2",
+          "name": "MedTrack",
+          "category": "Healthcare",
+          "description": "A patient-centered healthcare platform that connects rural communities with medical specialists through telemedicine and tracks health metrics for better outcomes.",
+          "website": "https://medtrack.example.com",
+          "image": "https://via.placeholder.com/300x200?text=MedTrack",
+          "date": "2025-01-15T08:00:00.000Z"
+        },
+        {
+          "id": "3",
+          "name": "Spud Analytics",
+          "category": "AgTech",
+          "description": "AI-powered analysis tools for potato farmers to maximize yield and quality while reducing waste. Specializes in Idaho's primary crop.",
+          "website": "https://getsparkage.com/",
+          "image": "https://via.placeholder.com/300x200?text=SpudAnalytics",
+          "date": "2025-02-10T08:00:00.000Z"
+        }
+      ];
 
       async function getStartups() {
         try {
@@ -446,8 +675,8 @@
           if (!res.ok) throw new Error('Failed to load startups.json');
           return await res.json();
         } catch (e) {
-          console.error(e);
-          return [];
+          console.warn('Using sample data:', e);
+          return startupsData;
         }
       }
 
@@ -482,7 +711,7 @@
       function showStartupDetails(s) {
         const logo = s.image
           ? `<img src="${s.image}" alt="${s.name}" class="startup-logo">`
-          : `<div class="startup-logo" style="display:flex;align-items:center;justify-content:center;background-color:var(--medium-gray);">${s.name[0]}</div>`;
+          : `<div class="startup-logo" style="display:flex;align-items:center;justify-content:center;background-color:var(--medium-gray);font-size:1.5rem;font-weight:bold;color:var(--white);">${s.name[0]}</div>`;
         
         const websiteLink = s.website
           ? `<a href="${s.website}" target="_blank" class="startup-website">Visit Website</a>`
@@ -558,5 +787,4 @@
       });
     </script>
   </body>
-</html>
 </html>
